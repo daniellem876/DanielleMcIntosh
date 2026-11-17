@@ -1156,3 +1156,184 @@ footer {
     display: inline-block;
     margin-bottom: 12px;
 }
+
+/* --- Linktree-style page (real-estate.html) --- */
+.lt-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(800px 400px at 85% -5%, rgba(179, 136, 230, 0.35), transparent 60%),
+        radial-gradient(700px 500px at 0% 105%, rgba(109, 205, 255, 0.16), transparent 55%),
+        linear-gradient(170deg, #2a1052 0%, #170a2e 55%, #0b0b10 100%);
+    background-attachment: fixed;
+    color: #fff;
+}
+
+.lt-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 48px 20px 40px;
+    text-align: center;
+    position: relative;
+}
+
+.lt-share {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+}
+
+.lt-share:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    transform: none;
+}
+
+.lt-avatar {
+    width: 104px;
+    height: 104px;
+    margin: 6px auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+    background: linear-gradient(140deg, #7b3fd4, #5e2b97 60%, #3d1a68);
+    border: 3px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+}
+
+.lt-name {
+    font-size: 2rem;
+    line-height: 1.15;
+    color: #fff;
+}
+
+.lt-title {
+    color: #d9c7f5;
+    font-weight: 600;
+    margin-top: 6px;
+    font-size: 1.05rem;
+}
+
+.lt-bio {
+    color: #cfc4e6;
+    line-height: 1.6;
+    margin: 12px auto 30px;
+    font-size: 0.98rem;
+    max-width: 440px;
+}
+
+.lt-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.lt-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.96);
+    color: #1c1030;
+    text-decoration: none;
+    padding: 15px 18px;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    animation: ltIn 0.5s ease both;
+}
+
+.lt-link:nth-child(2) { animation-delay: 0.05s; }
+.lt-link:nth-child(3) { animation-delay: 0.1s; }
+.lt-link:nth-child(4) { animation-delay: 0.15s; }
+.lt-link:nth-child(5) { animation-delay: 0.2s; }
+.lt-link:nth-child(6) { animation-delay: 0.25s; }
+.lt-link:nth-child(7) { animation-delay: 0.3s; }
+.lt-link:nth-child(8) { animation-delay: 0.35s; }
+
+@keyframes ltIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lt-link { animation: none; }
+}
+
+.lt-link:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.42);
+    background: #fff;
+}
+
+.lt-link-primary {
+    background: var(--text-color);
+    font-weight: 700;
+}
+
+.lt-link-feature {
+    border-color: #b388e6;
+    background: linear-gradient(120deg, #f3eafd, #ffffff);
+}
+
+.lt-icon {
+    font-size: 1.45rem;
+    flex: 0 0 auto;
+    width: 34px;
+    text-align: center;
+}
+
+.lt-link-text {
+    flex: 1;
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.3;
+}
+
+.lt-link-text small {
+    display: block;
+    font-weight: 400;
+    color: #5c5470;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+.lt-arrow {
+    font-size: 1.5rem;
+    color: #8d84a3;
+    flex: 0 0 auto;
+}
+
+.lt-footer {
+    margin-top: 34px;
+    color: #a99cc9;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.lt-back {
+    display: inline-block;
+    margin-top: 14px;
+    color: #d9c7f5;
+    text-decoration: none;
+    font-size: 0.92rem;
+}
+
+.lt-back:hover { text-decoration: underline; }
+
+@media screen and (max-width: 480px) {
+    .lt-wrap { padding-top: 40px; }
+    .lt-name { font-size: 1.7rem; }
+    .lt-link { padding: 14px 15px; border-radius: 14px; }
+}
