@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Jeanette McIntosh, Realtor Associate® with Complete Realty Solutions Ltd. in Kingston, Jamaica. Homes for sale, rentals, leases, auctions and property management.">
     <link rel="stylesheet" href="style.css">
     <title>Real Estate — Jeanette McIntosh, Complete Realty Solutions Ltd.</title>
 </head>
 
-<body>
+<body class="re-page">
     <header>
         <div class="container">
             <nav>
@@ -30,71 +32,71 @@
 
     <section class="re-hero">
         <div class="container re-hero-inner">
-            <div class="re-hero-text">
-                <h3>Kingston, Jamaica Real Estate</h3>
+            <div class="re-hero-text re-reveal">
+                <span class="re-eyebrow">🏡 Kingston, Jamaica · Complete Realty Solutions Ltd.</span>
                 <h1>Jeanette McIntosh</h1>
                 <h4>Realtor Associate<sup>®</sup> · S-4576</h4>
-                <p>Complete Realty Solutions Ltd. — Real Estate Sales · Rentals · Leases · Auctions · Property
-                    Management</p>
+                <p>Buying, selling or renting in Jamaica? Jeanette helps clients across Kingston &amp; St. Andrew find
+                    the right home — and the right deal.</p>
+                <div class="re-services">
+                    <span>Sales</span><span>Rentals</span><span>Leases</span><span>Auctions</span><span>Property
+                        Management</span>
+                </div>
                 <div class="re-contact-quick">
-                    <a href="tel:+18768458752" class="re-btn">Call 876-845-8752</a>
-                    <a href="mailto:Jeanette@crsja.net" class="re-btn re-btn-outline">Jeanette@crsja.net</a>
+                    <a href="tel:+18768458752" class="re-btn">📞 Call 876-845-8752</a>
+                    <a href="mailto:Jeanette@crsja.net" class="re-btn re-btn-outline">✉️ Email Jeanette</a>
+                    <a href="#listings" class="re-btn re-btn-ghost">View listings ↓</a>
                 </div>
             </div>
-            <div class="re-hero-card">
+            <div class="re-hero-card re-reveal">
                 <img src="images/jeanette-mcintosh-card.jpg"
                     alt="Jeanette McIntosh, Realtor Associate at Complete Realty Solutions Ltd. — contact card">
+                <a class="re-hero-chip" href="tel:+18768458752">📞 876-845-8752</a>
             </div>
         </div>
     </section>
 
-    <section class="re-section">
+    <section class="re-section" id="listings">
         <div class="container">
-            <h2>Contact</h2>
-            <div class="re-contact-grid">
-                <div class="re-card">
-                    <h3>Jeanette McIntosh</h3>
-                    <p>Realtor Associate<sup>®</sup> (S-4576)</p>
-                    <p>📞 <a href="tel:+18768458752">876-845-8752</a></p>
-                    <p>✉️ <a href="mailto:Jeanette@crsja.net">Jeanette@crsja.net</a></p>
-                </div>
-                <div class="re-card">
-                    <h3>Complete Realty Solutions Ltd.</h3>
-                    <p>Shop #10 Consumer Plaza,<br>103 Constant Spring Rd., Kingston 10, Jamaica</p>
-                    <p>📞 <a href="tel:+18769689181">(876) 968-9181</a></p>
-                    <p>✉️ <a href="mailto:properties@crsja.com">properties@crsja.com</a></p>
-                    <p>🌐 <a href="https://crsja.com" target="_blank" rel="noopener">crsja.com</a></p>
-                </div>
-                <div class="re-card">
-                    <h3>Services</h3>
-                    <p>Real Estate Sales</p>
-                    <p>Rentals</p>
-                    <p>Leases</p>
-                    <p>Auctions</p>
-                    <p>Property Management</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <h2 class="re-reveal">Active Listings</h2>
 
-    <section class="re-section">
-        <div class="container">
-            <h2>Active Listings</h2>
-
-            <article class="re-listing">
+            <article class="re-listing re-reveal">
                 <div class="re-gallery">
-                    <img src="images/real-estate/border-avenue-01.jpg" alt="5-36E Border Avenue — photo 1">
-                    <img src="images/real-estate/border-avenue-02.jpg" alt="5-36E Border Avenue — photo 2">
-                    <img src="images/real-estate/border-avenue-03.jpg" alt="5-36E Border Avenue — photo 3">
-                    <img src="images/real-estate/border-avenue-04.jpg" alt="5-36E Border Avenue — photo 4">
-                    <img src="images/real-estate/border-avenue-05.jpg" alt="5-36E Border Avenue — photo 5">
-                    <img src="images/real-estate/border-avenue-06.jpg" alt="5-36E Border Avenue — photo 6">
+                    <div class="re-gallery-main">
+                        <img id="reMainPhoto" src="images/real-estate/border-avenue-02.jpg"
+                            alt="5-36E Border Avenue — main photo">
+                        <span class="re-badge">● Active · For Sale</span>
+                        <span class="re-counter" id="reCounter">1 / 6</span>
+                        <button class="re-arrow re-arrow-prev" id="rePrev" aria-label="Previous photo">‹</button>
+                        <button class="re-arrow re-arrow-next" id="reNext" aria-label="Next photo">›</button>
+                    </div>
+                    <div class="re-thumbs" id="reThumbs">
+                        <img src="images/real-estate/border-avenue-02.jpg" alt="Photo 1" class="active">
+                        <img src="images/real-estate/border-avenue-01.jpg" alt="Photo 2">
+                        <img src="images/real-estate/border-avenue-03.jpg" alt="Photo 3">
+                        <img src="images/real-estate/border-avenue-04.jpg" alt="Photo 4">
+                        <img src="images/real-estate/border-avenue-05.jpg" alt="Photo 5">
+                        <img src="images/real-estate/border-avenue-06.jpg" alt="Photo 6">
+                    </div>
                 </div>
                 <div class="re-listing-body">
                     <div class="re-price">JMD $30,500,000</div>
-                    <h3>5-36E Border Avenue, Kingston 19, St. Andrew</h3>
-                    <p class="re-meta">For Sale · Active · Apartment · 1 Bed · 1 Bath · 603 sq ft · Lot 1,152 sq ft ·
-                        MLS# 107130</p>
+                    <h3>5-36E Border Avenue</h3>
+                    <p class="re-location">📍 Kingston 19, St. Andrew, Jamaica</p>
+                    <div class="re-specs">
+                        <div class="re-spec"><span class="re-spec-icon">🛏️</span><strong>1</strong><small>Bed</small>
+                        </div>
+                        <div class="re-spec"><span class="re-spec-icon">🛁</span><strong>1</strong><small>Bath</small>
+                        </div>
+                        <div class="re-spec"><span class="re-spec-icon">📐</span><strong>603</strong><small>Sq ft</small>
+                        </div>
+                        <div class="re-spec"><span class="re-spec-icon">🌳</span><strong>1,152</strong><small>Lot sq
+                                ft</small></div>
+                        <div class="re-spec"><span class="re-spec-icon">🏢</span><strong>Apartment</strong><small>Type</small>
+                        </div>
+                        <div class="re-spec"><span class="re-spec-icon">🔖</span><strong>107130</strong><small>MLS#</small>
+                        </div>
+                    </div>
                     <p>Newly constructed 1-bedroom, 1-bathroom apartment located in a small complex comprising 13
                         units. Each apartment unit comes with a dedicated water tank and water pump. The apartment
                         includes a laundry room with washtub and ample space for a laundry unit. This apartment is
@@ -109,10 +111,40 @@
                 </div>
             </article>
 
-            <p class="re-note">Listings change — for Jeanette's latest availability, call
+            <p class="re-note re-reveal">Listings change — for Jeanette's latest availability, call
                 <a href="tel:+18768458752">876-845-8752</a> or email
                 <a href="mailto:Jeanette@crsja.net">Jeanette@crsja.net</a>.
             </p>
+        </div>
+    </section>
+
+    <section class="re-section re-section-alt">
+        <div class="container">
+            <h2 class="re-reveal">Contact</h2>
+            <div class="re-contact-grid">
+                <div class="re-card re-reveal">
+                    <div class="re-card-icon">👩🏾‍💼</div>
+                    <h3>Jeanette McIntosh</h3>
+                    <p>Realtor Associate<sup>®</sup> (S-4576)</p>
+                    <p>📞 <a href="tel:+18768458752">876-845-8752</a></p>
+                    <p>✉️ <a href="mailto:Jeanette@crsja.net">Jeanette@crsja.net</a></p>
+                </div>
+                <div class="re-card re-reveal">
+                    <div class="re-card-icon">🏢</div>
+                    <h3>Complete Realty Solutions Ltd.</h3>
+                    <p>Shop #10 Consumer Plaza,<br>103 Constant Spring Rd., Kingston 10, Jamaica</p>
+                    <p>📞 <a href="tel:+18769689181">(876) 968-9181</a></p>
+                    <p>✉️ <a href="mailto:properties@crsja.com">properties@crsja.com</a></p>
+                    <p>🌐 <a href="https://crsja.com" target="_blank" rel="noopener">crsja.com</a></p>
+                </div>
+                <div class="re-card re-reveal">
+                    <div class="re-card-icon">🧭</div>
+                    <h3>Services</h3>
+                    <p>Real Estate Sales · Rentals · Leases</p>
+                    <p>Auctions · Property Management</p>
+                    <p>Serving Kingston, St. Andrew &amp; across Jamaica</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -121,7 +153,59 @@
         </p>
     </footer>
 
+    <div class="re-stickybar">
+        <a href="tel:+18768458752">📞 Call Jeanette</a>
+        <a href="mailto:Jeanette@crsja.net">✉️ Email</a>
+        <a href="#listings">🏡 Listings</a>
+    </div>
+
+    <div class="re-lightbox" id="reLightbox" hidden>
+        <button class="re-lightbox-close" id="reLightboxClose" aria-label="Close">×</button>
+        <img id="reLightboxImg" src="" alt="Listing photo, enlarged">
+    </div>
+
     <script src="main.js"></script>
+    <script>
+        (function () {
+            var main = document.getElementById('reMainPhoto');
+            var counter = document.getElementById('reCounter');
+            var thumbs = Array.prototype.slice.call(document.querySelectorAll('#reThumbs img'));
+            var idx = 0;
+
+            function show(i) {
+                idx = (i + thumbs.length) % thumbs.length;
+                main.src = thumbs[idx].src;
+                counter.textContent = (idx + 1) + ' / ' + thumbs.length;
+                thumbs.forEach(function (t, j) { t.classList.toggle('active', j === idx); });
+            }
+            thumbs.forEach(function (t, j) { t.addEventListener('click', function () { show(j); }); });
+            document.getElementById('rePrev').addEventListener('click', function () { show(idx - 1); });
+            document.getElementById('reNext').addEventListener('click', function () { show(idx + 1); });
+
+            var box = document.getElementById('reLightbox');
+            var boxImg = document.getElementById('reLightboxImg');
+            main.addEventListener('click', function () { boxImg.src = main.src; box.hidden = false; });
+            document.getElementById('reLightboxClose').addEventListener('click', function () { box.hidden = true; });
+            box.addEventListener('click', function (e) { if (e.target === box) box.hidden = true; });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') box.hidden = true;
+                if (!box.hidden) return;
+                if (e.key === 'ArrowLeft') show(idx - 1);
+                if (e.key === 'ArrowRight') show(idx + 1);
+            });
+
+            if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (en) {
+                        if (en.isIntersecting) { en.target.classList.add('re-visible'); io.unobserve(en.target); }
+                    });
+                }, { threshold: 0.12 });
+                document.querySelectorAll('.re-reveal').forEach(function (el) { io.observe(el); });
+            } else {
+                document.querySelectorAll('.re-reveal').forEach(function (el) { el.classList.add('re-visible'); });
+            }
+        })();
+    </script>
 </body>
 
 </html>
