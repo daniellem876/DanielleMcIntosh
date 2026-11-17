@@ -1150,3 +1150,9 @@ footer {
     .re-stickybar { display: flex; }
     .re-section h2::after { left: 0; }
 }
+
+.re-badge-inline {
+    position: static;
+    display: inline-block;
+    margin-bottom: 12px;
+}
