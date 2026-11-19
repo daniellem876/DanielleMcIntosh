@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dani's Workout Planner</title>
+    <style>
+        .planner { padding: 30px 20px 70px; }
+        .planner-head { text-align: center; margin-bottom: 8px; }
+        .planner-head h1 { font-size: 40px; font-weight: 700; }
+        .planner-head h1 span { color: var(--text-color); }
+        .planner-head p { color: #bbb; margin-top: 8px; font-size: 15px; }
+        .sync-note {
+            max-width: 640px; margin: 14px auto 0; font-size: 13px; color: #999;
+            border: 1px solid #2a2a2a; border-radius: 10px; padding: 10px 14px; background: #0d0d0d;
+        }
+        .sync-note strong { color: var(--text-color); font-weight: 600; }
+        .weekbar {
+            display: flex; align-items: center; justify-content: center; gap: 14px;
+            margin: 26px auto 6px; flex-wrap: wrap;
+        }
+        .weekbar button {
+            background: transparent; color: #fff; border: 1px solid var(--text-color);
+            border-radius: 999px; padding: 8px 18px; font-size: 14px; cursor: pointer; font-family: 'Rubik', sans-serif;
+        }
+        .weekbar button:hover { background: var(--text-color); color: #000; }
+        .weekbar .range { font-size: 18px; font-weight: 600; min-width: 230px; text-align: center; }
+        .summary { text-align: center; color: #bbb; font-size: 14px; margin-bottom: 22px; }
+        .summary strong { color: var(--text-color); }
+        .week {
+            display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px;
+            max-width: 1250px; margin: 0 auto;
+        }
+        .day {
+            border: 1px solid #262626; border-radius: 14px; background: #0b0b0b;
+            padding: 12px 10px; min-height: 210px; display: flex; flex-direction: column;
+        }
+        .day.today { border-color: var(--text-color); box-shadow: 0 0 0 1px var(--text-color); }
+        .day h3 { font-size: 14px; text-transform: uppercase; letter-spacing: .06em; }
+        .day .date { color: #888; font-size: 12px; margin: 2px 0 10px; }
+        .day.today .date { color: var(--text-color); }
+        .entry {
+            border: 1px solid #2c2c2c; border-left: 3px solid var(--text-color);
+            border-radius: 10px; padding: 8px; margin-bottom: 8px; background: #111; font-size: 13px;
+        }
+        .entry.done { opacity: .55; }
+        .entry.done .entry-title { text-decoration: line-through; }
+        .entry .entry-time { color: var(--text-color); font-weight: 600; font-size: 12px; }
+        .entry .entry-title { font-weight: 600; margin: 2px 0; line-height: 1.35; }
+        .entry .entry-meta { color: #999; font-size: 12px; line-height: 1.45; }
+        .badge {
+            display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .05em;
+            text-transform: uppercase; border-radius: 999px; padding: 2px 8px; margin-bottom: 5px;
+        }
+        .badge.solidcore { background: var(--text-color); color: #000; }
+        .badge.custom { background: #2c2c2c; color: #ddd; }
+        .entry-actions { display: flex; gap: 6px; margin-top: 7px; }
+        .entry-actions button {
+            flex: 1; background: transparent; border: 1px solid #3a3a3a; color: #ccc;
+            border-radius: 7px; padding: 4px 0; font-size: 11px; cursor: pointer; font-family: 'Rubik', sans-serif;
+        }
+        .entry-actions button:hover { border-color: var(--text-color); color: var(--text-color); }
+        .rest { color: #666; font-size: 13px; font-style: italic; margin-bottom: 8px; }
+        .add-btn {
+            margin-top: auto; width: 100%; background: transparent; border: 1px dashed #3d3d3d; color: #aaa;
+            border-radius: 10px; padding: 8px 0; font-size: 13px; cursor: pointer; font-family: 'Rubik', sans-serif;
+        }
+        .add-btn:hover { border-color: var(--text-color); color: var(--text-color); }
+        .add-form { display: none; margin-top: 4px; }
+        .add-form.open { display: block; }
+        .add-form label { display: block; font-size: 11px; color: #999; margin: 7px 0 3px; text-transform: uppercase; letter-spacing: .05em; }
+        .add-form input, .add-form select {
+            width: 100%; background: #161616; border: 1px solid #333; color: #fff; border-radius: 8px;
+            padding: 7px 8px; font-size: 13px; font-family: 'Rubik', sans-serif; color-scheme: dark;
+        }
+        .add-form .row { display: flex; gap: 6px; margin-top: 10px; }
+        .add-form .row button {
+            flex: 1; border-radius: 8px; padding: 7px 0; font-size: 12px; cursor: pointer; font-family: 'Rubik', sans-serif;
+        }
+        .add-form .save { background: var(--text-color); border: none; color: #000; font-weight: 600; }
+        .add-form .cancel { background: transparent; border: 1px solid #3a3a3a; color: #ccc; }
+        .planner-foot { text-align: center; margin-top: 28px; }
+        .planner-foot button {
+            background: transparent; color: #fff; border: 1px solid var(--text-color);
+            border-radius: 999px; padding: 9px 20px; font-size: 14px; cursor: pointer; font-family: 'Rubik', sans-serif;
+        }
+        .planner-foot button:hover { background: var(--text-color); color: #000; }
+        .planner-foot p { color: #777; font-size: 12px; margin-top: 10px; }
+        @media (max-width: 1000px) { .week { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px) {
+            .week { grid-template-columns: 1fr; }
+            .planner-head h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html"><span>Danielle</span> McIntosh</a>
+                </div>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="workouts.html" class="active">Workouts</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="planner">
+        <div class="planner-head">
+            <h1>Dani's <span>Workout Planner</span></h1>
+            <p>Plan the week. Show up. Check it off.</p>
+            <div class="sync-note">
+                <strong>Solidcore synced:</strong> your booked [solidcore] classes are loaded below
+                from your class reservations (Capitol Hill). Classes you add yourself are saved
+                in this browser.
+            </div>
+        </div>
+
+        <div class="weekbar">
+            <button id="prevWeek" type="button">&larr; Prev</button>
+            <div class="range" id="weekRange"></div>
+            <button id="nextWeek" type="button">Next &rarr;</button>
+            <button id="thisWeek" type="button">This week</button>
+        </div>
+        <div class="summary" id="weekSummary"></div>
+
+        <div class="week" id="weekGrid"></div>
+
+        <div class="planner-foot">
+            <button id="resync" type="button">Re-sync Solidcore classes</button>
+            <p>Re-sync restores your booked Solidcore classes if any were removed here. It never deletes workouts you added.</p>
+        </div>
+    </section>
+
+    <script>
+        // ---- Synced Solidcore bookings (from Danielle's class reservations) ----
+        const SOLIDCORE_SEED = [
+            { id: 'sc-2026-11-18', date: '2026-11-18', time: '20:15', type: 'Solidcore', title: 'Signature50: Full Body', detail: 'with Amina Moalin · Capitol Hill', source: 'solidcore', done: false },
+            { id: 'sc-2026-11-21', date: '2026-11-21', time: '13:15', type: 'Solidcore', title: 'Signature50: Full Body', detail: 'with Zainab Sajid · Capitol Hill', source: 'solidcore', done: false },
+            { id: 'sc-2026-11-24', date: '2026-11-24', time: '19:15', type: 'Solidcore', title: 'Signature50: Full Body', detail: 'with Luis Santana · Capitol Hill', source: 'solidcore', done: false },
+            { id: 'sc-2026-11-30', date: '2026-11-30', time: '18:15', type: 'Solidcore', title: 'Signature50: Full Body', detail: 'with Michelle Condry · Capitol Hill', source: 'solidcore', done: false }
+        ];
+
+        const STORE_KEY = 'daniWorkoutPlanner.v1';
+        const TYPES = ['Solidcore', 'Run', 'Lift', 'Pilates', 'Barre', "Barry's", 'Yoga', 'Cardio', 'Walk', 'Rest', 'Other'];
+
+        function loadEntries() {
+            try {
+                const raw = localStorage.getItem(STORE_KEY);
+                if (raw) return JSON.parse(raw);
+            } catch (e) { /* fall through to seed */ }
+            return SOLIDCORE_SEED.slice();
+        }
+        function saveEntries() {
+            try { localStorage.setItem(STORE_KEY, JSON.stringify(entries)); } catch (e) { }
+        }
+
+        let entries = loadEntries();
+        let weekOffset = 0;
+
+        function toISO(d) {
+            const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+            return y + '-' + m + '-' + day;
+        }
+        function weekStart(offset) {
+            const now = new Date();
+            const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            d.setDate(d.getDate() - d.getDay() + offset * 7); // Sunday start
+            return d;
+        }
+        function fmtTime(t) {
+            if (!t) return '';
+            const parts = t.split(':');
+            let h = parseInt(parts[0], 10);
+            const min = parts[1] || '00';
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return h + ':' + min + ' ' + ampm;
+        }
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
+        function render() {
+            const start = weekStart(weekOffset);
+            const days = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+                days.push(d);
+            }
+            const end = days[6];
+            const opts = { month: 'short', day: 'numeric' };
+            document.getElementById('weekRange').textContent =
+                start.toLocaleDateString('en-US', opts) + ' – ' + end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            const todayISO = toISO(new Date());
+            const grid = document.getElementById('weekGrid');
+            grid.innerHTML = '';
+            let planned = 0, doneCount = 0, scCount = 0;
+
+            days.forEach(function (d) {
+                const iso = toISO(d);
+                const dayEntries = entries
+                    .filter(function (e) { return e.date === iso; })
+                    .sort(function (a, b) { return (a.time || '99') < (b.time || '99') ? -1 : 1; });
+                dayEntries.forEach(function (e) {
+                    planned++;
+                    if (e.done) doneCount++;
+                    if (e.source === 'solidcore') scCount++;
+                });
+
+                const col = document.createElement('div');
+                col.className = 'day' + (iso === todayISO ? ' today' : '');
+                let html = '<h3>' + d.toLocaleDateString('en-US', { weekday: 'short' }) + '</h3>' +
+                    '<div class="date">' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + (iso === todayISO ? ' · Today' : '') + '</div>';
+
+                if (dayEntries.length === 0) html += '<div class="rest">Rest day</div>';
+                dayEntries.forEach(function (e) {
+                    html += '<div class="entry' + (e.done ? ' done' : '') + '">' +
+                        '<span class="badge ' + (e.source === 'solidcore' ? 'solidcore' : 'custom') + '">' +
+                        (e.source === 'solidcore' ? 'Solidcore · Booked' : esc(e.type)) + '</span>' +
+                        (e.time ? '<div class="entry-time">' + fmtTime(e.time) + '</div>' : '') +
+                        '<div class="entry-title">' + esc(e.title) + '</div>' +
+                        (e.detail ? '<div class="entry-meta">' + esc(e.detail) + '</div>' : '') +
+                        '<div class="entry-actions">' +
+                        '<button type="button" data-act="toggle" data-id="' + e.id + '">' + (e.done ? 'Undo' : 'Done') + '</button>' +
+                        '<button type="button" data-act="del" data-id="' + e.id + '">Remove</button>' +
+                        '</div></div>';
+                });
+
+                html += '<button class="add-btn" type="button" data-add="' + iso + '">+ Add workout</button>' +
+                    '<form class="add-form" id="form-' + iso + '">' +
+                    '<label>Type</label><select name="type">' +
+                    TYPES.map(function (t) { return '<option value="' + t + '">' + t + '</option>'; }).join('') +
+                    '</select>' +
+                    '<label>Workout</label><input name="title" type="text" placeholder="e.g. 3 mile run" required>' +
+                    '<label>Time</label><input name="time" type="time">' +
+                    '<label>Details</label><input name="detail" type="text" placeholder="Location, coach, notes">' +
+                    '<div class="row"><button class="save" type="submit">Save</button>' +
+                    '<button class="cancel" type="button" data-cancel="' + iso + '">Cancel</button></div></form>';
+                col.innerHTML = html;
+                grid.appendChild(col);
+            });
+
+            document.getElementById('weekSummary').innerHTML =
+                '<strong>' + planned + '</strong> planned · <strong>' + doneCount + '</strong> done · <strong>' + scCount + '</strong> Solidcore this week';
+
+            grid.querySelectorAll('[data-add]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.getElementById('form-' + btn.getAttribute('data-add')).classList.add('open');
+                });
+            });
+            grid.querySelectorAll('[data-cancel]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.getElementById('form-' + btn.getAttribute('data-cancel')).classList.remove('open');
+                });
+            });
+            grid.querySelectorAll('.add-form').forEach(function (form) {
+                form.addEventListener('submit', function (ev) {
+                    ev.preventDefault();
+                    const fd = new FormData(form);
+                    entries.push({
+                        id: 'u' + Date.now().toString(36) + Math.floor(Math.random() * 999),
+                        date: form.id.replace('form-', ''),
+                        time: fd.get('time') || '',
+                        type: fd.get('type') || 'Other',
+                        title: (fd.get('title') || '').toString().trim() || 'Workout',
+                        detail: (fd.get('detail') || '').toString().trim(),
+                        source: 'custom', done: false
+                    });
+                    saveEntries();
+                    render();
+                });
+            });
+            grid.querySelectorAll('[data-act]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const id = btn.getAttribute('data-id');
+                    if (btn.getAttribute('data-act') === 'toggle') {
+                        entries = entries.map(function (e) { if (e.id === id) e.done = !e.done; return e; });
+                    } else {
+                        entries = entries.filter(function (e) { return e.id !== id; });
+                    }
+                    saveEntries();
+                    render();
+                });
+            });
+        }
+
+        document.getElementById('prevWeek').addEventListener('click', function () { weekOffset--; render(); });
+        document.getElementById('nextWeek').addEventListener('click', function () { weekOffset++; render(); });
+        document.getElementById('thisWeek').addEventListener('click', function () { weekOffset = 0; render(); });
+        document.getElementById('resync').addEventListener('click', function () {
+            const have = {};
+            entries.forEach(function (e) { have[e.id] = true; });
+            SOLIDCORE_SEED.forEach(function (s) { if (!have[s.id]) entries.push(Object.assign({}, s)); });
+            saveEntries();
+            render();
+        });
+
+        const hamburger = document.querySelector('.hamburger');
+        const navList = document.querySelector('nav ul');
+        if (hamburger && navList) {
+            hamburger.addEventListener('click', function () {
+                hamburger.classList.toggle('active');
+                navList.classList.toggle('active');
+            });
+        }
+
+        render();
+    </script>
+</body>
+
+</html>
